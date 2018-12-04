@@ -4,6 +4,7 @@ namespace my_jvm {
 
 const char* CommandLine::kOptString = "hv";
 const struct option CommandLine::kLongOpts[] = {
+  {"XjreOption", required_argument, NULL, 'b'},
   {"classpath", required_argument, NULL, 'p'},
   {"cp", required_argument, NULL, 'p'},
   {"help", no_argument, NULL, 'h'},
@@ -29,6 +30,9 @@ void CommandLine::parse() {
         break;
       case 'p':
         cp_option_ = optarg;
+        break;
+      case 'b':
+        xjre_option_ = optarg;
         break;
     }
   }

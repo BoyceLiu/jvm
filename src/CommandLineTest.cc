@@ -2,9 +2,11 @@
 #include <gtest/gtest.h>
 
 TEST(CommandLineTest, HandleNormalInput1) {
-  int argc = 6;
+  int argc = 8;
   char *argv[] = {
     "my_jvm",
+    "--XjreOption",
+    "lib/jre",
     "--cp",
     "someClassPath",
     "className",
@@ -14,6 +16,7 @@ TEST(CommandLineTest, HandleNormalInput1) {
   my_jvm::CommandLine commandLine(argc, argv);
   commandLine.parse();
   EXPECT_STREQ("someClassPath", commandLine.cp_option().c_str());
+  EXPECT_STREQ("lib/jre", commandLine.xjre_option().c_str());
   EXPECT_STREQ("className", commandLine.class_name().c_str());
   ASSERT_EQ(2, commandLine.args().size());
   EXPECT_STREQ("arg1", commandLine.args()[0].c_str());
@@ -21,9 +24,11 @@ TEST(CommandLineTest, HandleNormalInput1) {
 }
 
 TEST(CommandLineTest, HandleNormalInput2) {
-  int argc = 6;
+  int argc = 8;
   char *argv[] = {
     "my_jvm",
+    "--XjreOption",
+    "lib/jre",
     "--classpath",
     "someClassPath",
     "className",
@@ -32,6 +37,7 @@ TEST(CommandLineTest, HandleNormalInput2) {
   };
   my_jvm::CommandLine commandLine(argc, argv);
   commandLine.parse();
+  EXPECT_STREQ("lib/jre", commandLine.xjre_option().c_str());
   EXPECT_STREQ("someClassPath", commandLine.cp_option().c_str());
   EXPECT_STREQ("className", commandLine.class_name().c_str());
   ASSERT_EQ(2, commandLine.args().size());
@@ -61,7 +67,6 @@ TEST(CommandLineTest, HandleHelpInput2) {
   EXPECT_TRUE(commandLine.help_flag());
 }
 
-
 TEST(CommandLineTest, HandleVersionInput1) {
   int argc = 2;
   char *argv[] = {
@@ -83,8 +88,6 @@ TEST(CommandLineTest, HandleVersionInput2) {
   commandLine.parse();
   EXPECT_TRUE(commandLine.version_flag());
 }
-
-
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

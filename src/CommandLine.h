@@ -19,6 +19,7 @@ class CommandLine {
 
   const std::string& cp_option() const { return cp_option_; }
 
+  const std::string& xjre_option() const { return xjre_option_; }
   const std::string& class_name() const { return class_name_; }
 
   const std::vector<std::string>& args() const { return args_; }
@@ -30,6 +31,7 @@ class CommandLine {
   bool help_flag_;
   bool version_flag_;
   std::string cp_option_;
+  std::string xjre_option_;
   std::string class_name_;
   std::vector<std::string> args_;
 };
