@@ -61,7 +61,6 @@ TEST(CommandLineTest, HandleHelpInput2) {
   EXPECT_TRUE(commandLine.help_flag());
 }
 
-
 TEST(CommandLineTest, HandleVersionInput1) {
   int argc = 2;
   char *argv[] = {
@@ -83,8 +82,6 @@ TEST(CommandLineTest, HandleVersionInput2) {
   commandLine.parse();
   EXPECT_TRUE(commandLine.version_flag());
 }
-
-
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
